@@ -1,0 +1,9 @@
+
+
+flash.reprogram ALL
+data.load.binary * E:0x60000--0x7FFFF
+flash.reprogram OFF
+
+
+
+

@@ -1,0 +1,6 @@
+; Initializes internal SRAM and sets MMU TLB entry
+
+; initialize internal SRAM 48 KB
+Data.Set EA:0x40000000--0x4000BFFF %quad 0
+
+ENDDO

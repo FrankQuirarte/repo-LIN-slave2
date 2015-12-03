@@ -1,0 +1,52 @@
+;demo script for MPC560X/SPC560X running on internal SRAM
+
+SYStem.RESet
+  
+if simulator()
+    SYStem.CPU MPC5604B
+else
+(
+  SYStem.DETECT.CPU
+)
+
+if powernexus()
+(
+  Trace.Method Analyzer
+  Trace.Init
+  ;set port mode to MDO4
+  SYS.O.NEXUS MDO4
+)
+else if simulator()
+(
+  SYStem.Option.DisMode VLE
+  Trace.Method Analyzer
+  Trace.Init
+)
+  
+SYStem.Option.WATCHDOG OFF
+SYStem.BdmClock 4.MHz
+SYStem.UP
+
+if !simulator()
+(
+  ;enable real time memory access via NEXUS block
+  SYStem.MemAccess NEXUS
+)
+
+; ** DOWNLOAD PROGRAM, RUN FROM _start TO main, DISPLAY WINDOWS **
+DATA.LOAD.elf ..\bin\internal_FLASH.elf /GLOBTYPES /NOCODE
+
+;execute until function main
+;GO main
+;WAIT !RUN()
+
+;set debug mode to HLL debugging
+MODE.HLL
+
+;open some windows and arrange
+ 
+Data.List 
+
+ENDDO
+
+
